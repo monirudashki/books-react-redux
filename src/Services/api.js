@@ -10,7 +10,7 @@ async function request(url, options) {
         const response = await fetch(url, options);
 
         // Handle errors
-        if (response.ok == false) {
+        if (response.ok === false) {
             const error = await response.json();
             throw new Error(error.message);
         }
@@ -72,20 +72,18 @@ export async function del(url) {
 export async function login(email, password) {
     const result = await post(settings.host + '/users/login', { email, password });
     setUserData(result);
-    
+
     return result;
 }
 
 export async function register(email, password) {
     const result = await post(settings.host + '/users/register', { email, password });
     setUserData(result);
-    
+
     return result;
 }
 
 export function logout() {
-    const result = get(settings.host + '/users/logout');
+    get(settings.host + '/users/logout');
     clearUserData();
-    
-    return result;
 }

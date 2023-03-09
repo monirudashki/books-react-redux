@@ -1,4 +1,39 @@
 export const Register = () => {
+
+    // const navigateTo = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const [error, setError] = useState('');
+
+    const [formValues, setFormValues] = useState({
+        email: '',
+        password: '',
+    });
+
+    const onChangeValueHandler = (e) => {
+        setFormValues(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }));
+    }
+
+    const onSubmitHandler = async (e) => {
+        e.preventDefault();
+
+        const userData = {
+            email: formValues.email,
+            password: formValues.password
+        }
+
+        try {
+            const result = await login(userData.email, userData.password);
+            dispatch(loginUser(result));
+        } catch (err) {
+            console.log(err); // TODO redux global state for errors
+        }
+    }
+
     return (
         <section id="register-page" className="register">
             <form id="register-form">
