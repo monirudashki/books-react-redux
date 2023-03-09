@@ -1,10 +1,6 @@
-export const Header = () => {
+import { NavLink } from "react-router-dom";
 
-    // const setActiveStyle = ({ isActive }) => {
-    //     return isActive
-    //         ? styles['active']
-    //         : 'none'
-    // }
+export const Header = () => {
 
     return (
         <header id="site-header">
@@ -12,8 +8,8 @@ export const Header = () => {
                 <section className="navbar-dashboard">
                     <a href="#/">Dashboard</a>
                     <div id="guest">
-                        <a className="button" href="#/">Login</a>
-                        <a className="button" href="#/">Register</a>
+                        <NavLink to="/auth/login" className='button'>Login</NavLink>
+                        <NavLink to="/auth/register" className='button'>Register</NavLink>
                     </div>
 
                     <div id="user">
