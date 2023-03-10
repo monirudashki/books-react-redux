@@ -8,6 +8,7 @@ import { Login } from './Components/Auth/Login';
 import { Register } from './Components/Auth/Register';
 import { Logout } from './Components/Core/Logout';
 import { Dashboard } from './Components/Content/Dashboard';
+import { CreateBook } from './Components/Content/CreateBook';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route path='/auth/login' element={<Login />} />
           <Route path='/auth/register' element={<Register />} />
           <Route path='/auth/logout' element={<Logout />} />
+
+          <Route path='/createBook' element={<CreateBook />} />
         </Routes>
       </div>
 

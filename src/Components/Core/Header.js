@@ -22,7 +22,7 @@ export const Header = () => {
                         <div id="user">
                             <span>Welcome, {currentUser.email}</span>
                             <a className="button" href="#/">My Books</a>
-                            <a className="button" href="#/">Add Book</a>
+                            <NavLink className="button" to="/createBook">Add Book</NavLink>
                             <Link className="button" to='/auth/logout'>Logout</Link>
                         </div>
                     }
