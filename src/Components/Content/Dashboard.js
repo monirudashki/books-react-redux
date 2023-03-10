@@ -13,7 +13,6 @@ export const Dashboard = () => {
         dispatch(getDashboardData());
     }, [dispatch]);
 
-
     return (
         <>
             {dashboardData.isLoading

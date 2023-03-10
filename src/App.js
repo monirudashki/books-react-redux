@@ -9,6 +9,7 @@ import { Register } from './Components/Auth/Register';
 import { Logout } from './Components/Core/Logout';
 import { Dashboard } from './Components/Content/Dashboard';
 import { CreateBook } from './Components/Content/CreateBook';
+import { MyBooks } from './Components/Content/MyBooks';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/auth/logout' element={<Logout />} />
 
           <Route path='/createBook' element={<CreateBook />} />
+          <Route path='/myBooks' element={<MyBooks />} />
         </Routes>
       </div>
 

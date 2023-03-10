@@ -29,4 +29,6 @@ export const dashboardSlice = createSlice({
     }
 });
 
+//TODO reform extra reducer to builder
+
 export default dashboardSlice;
