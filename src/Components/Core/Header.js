@@ -6,13 +6,11 @@ export const Header = () => {
 
     const currentUser = useSelector((state) => state.user.value);
 
-    console.log(currentUser);
-
     return (
         <header id="site-header">
             <nav className="navbar">
                 <section className="navbar-dashboard">
-                    <a href="#/">Dashboard</a>
+                    <NavLink to="/">Dashboard</NavLink>
 
                     {!currentUser
                         ?

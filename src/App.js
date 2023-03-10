@@ -7,6 +7,7 @@ import { Header } from './Components/Core/Header';
 import { Login } from './Components/Auth/Login';
 import { Register } from './Components/Auth/Register';
 import { Logout } from './Components/Core/Logout';
+import { Dashboard } from './Components/Content/Dashboard';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
 
       <div id='container'>
         <Routes>
+
+          <Route path='/' element={<Dashboard />} />
+
           <Route path='/auth/login' element={<Login />} />
           <Route path='/auth/register' element={<Register />} />
           <Route path='/auth/logout' element={<Logout />} />

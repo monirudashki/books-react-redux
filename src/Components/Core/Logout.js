@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../../Features/user";
+import { logoutUser } from "../../Features/userState/user";
 import { logout } from "../../Services/api";
 
 export const Logout = () => {

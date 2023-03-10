@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../Features/user";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../Features/userState/user";
 import { register } from "../../Services/api";
 import { passwordsMatch } from "./validators/validators";
 
 export const Register = () => {
 
-    // const navigateTo = useNavigate();
+    const navigateTo = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ export const Register = () => {
         try {
             const result = await register(userData.email, userData.password);
             dispatch(loginUser(result));
+            navigateTo('/');
         } catch (err) {
             console.log(err); // TODO redux global state for errors
         }

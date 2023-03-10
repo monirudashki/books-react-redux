@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getUserData } from '../../Services/util';
 
-const initialStateValue = undefined;
+const initialStateValue = getUserData();
 
 export const userSlice = createSlice({
     name: 'user',
@@ -11,7 +12,7 @@ export const userSlice = createSlice({
         },
 
         logoutUser: (state, action) => {
-            state.value = initialStateValue
+            state.value = undefined;
         }
     }
 });

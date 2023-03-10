@@ -2,11 +2,12 @@ import { useState } from "react";
 import { login } from "../../Services/data";
 
 import { useDispatch } from "react-redux";
-import { loginUser } from '../../Features/user';
+import { loginUser } from '../../Features/userState/user';
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
-    // const navigateTo = useNavigate();
+    const navigateTo = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -35,6 +36,7 @@ export const Login = () => {
         try {
             const result = await login(userData.email, userData.password);
             dispatch(loginUser(result));
+            navigateTo('/');
         } catch (err) {
             console.log(err); // TODO redux global state for errors
         }

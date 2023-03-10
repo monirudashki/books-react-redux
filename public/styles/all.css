@@ -32,7 +32,8 @@ body {
 
 .login form,
 .register form,
-.create form, .edit form {
+.create form,
+.edit form {
     margin: 5rem auto;
 }
 
@@ -144,6 +145,7 @@ div.actions {
     display: flex;
     justify-content: center;
 }
+
 div.actions a {
     margin-right: 10px;
     height: 25px;
@@ -209,21 +211,32 @@ textarea#description {
     box-shadow: 30px 30px 100px 10px #000000;
 }
 
-.details > .book-information > .img {
+.details>.book-information>.img {
     width: 60%;
     align-items: center;
 }
-.details > .book-information > .button {
+
+.details>.book-information>.button {
     width: 30%;
     text-align: center;
 }
 
 .details {
-    margin:  30px;
+    margin: 30px;
 }
 
 .likes {
     font-size: 20px;
-    text-shadow:4px 4px 8px blue;
+    text-shadow: 4px 4px 8px blue;
     text-align: center;
+}
+
+.spinner-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

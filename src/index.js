@@ -8,11 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
-import userReducer from './Features/user';
+import userReducer from './Features/userState/user';
+import dashboardSlice from './Features/dashboardState/dashboard';
 
 const store = configureStore({
   reducer: {
-    user: userReducer
+    user: userReducer,
+    dashboard: dashboardSlice.reducer
   }
 });
 
