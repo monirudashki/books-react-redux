@@ -19,8 +19,8 @@ export async function createBook(bookData) {
     return await api.post(host + '/data/books', bookData);
 }
 
-export async function editBookById(id, listing) {
-    return await api.put(host + `/data/books/${id}`, listing);
+export async function editBookById(id, bookData) {
+    return await api.put(host + `/data/books/${id}`, bookData);
 }
 
 export async function deleteBookById(id) {

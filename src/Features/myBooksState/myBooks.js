@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { getMyBooksData } from "./myBooksThunk";
 
 const myBooksInitialState = {
@@ -7,13 +7,36 @@ const myBooksInitialState = {
     message: '',
     isLoading: false,
     isEditMode: false,
-    isDeleteMode: false
+    isDeleteMode: false,
+    currentBook: {},
+    currentBookId: ''
 }
 
 export const myBooksSlice = createSlice({
     name: 'myBooks',
     initialState: myBooksInitialState,
-    reducers: {},
+    reducers: {
+        currentBookData: (state, { payload }) => {
+            state.currentBook = payload;
+        },
+        editModeToggle: (state, { payload }) => {
+            state.isEditMode = payload;
+        },
+        deleteModeToggle: (state, { payload }) => {
+            state.isDeleteMode = payload
+        },
+        getCurrentBookId: (state, { payload }) => {
+            state.currentBookId = payload;
+        },
+        editBook: (state, { payload }) => {
+            const data = current(state.data).filter((x) => x._id !== payload._id);
+            data.unshift(payload);
+            state.data = data;
+        },
+        deleteBook: (state, { payload }) => {
+            state.data = current(state.data).filter((x) => x._id !== payload);
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getMyBooksData.pending, (state, { payload }) => {
@@ -31,5 +54,15 @@ export const myBooksSlice = createSlice({
             })
     }
 });
+
+export const {
+    currentBookData,
+    editModeToggle,
+    getCurrentBookId,
+    editBook,
+    deleteModeToggle,
+    deleteBook
+}
+    = myBooksSlice.actions
 
 export default myBooksInitialState;

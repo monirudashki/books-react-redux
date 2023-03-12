@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMyBooksData } from "../../Features/myBooksState/myBooksThunk";
 import { Spinner } from "../Shared/Spinner";
 import { DashboardItem } from "./DashboardItem";
+import { DeleteBook } from "./DeleteBook";
+import { EditBook } from './EditBook';
 
 export const MyBooks = () => {
 
@@ -12,6 +14,13 @@ export const MyBooks = () => {
     useEffect(() => {
         dispatch(getMyBooksData());
     }, [dispatch]);
+
+    if (myBooksData.isEditMode === true) {
+        return <EditBook />
+    }
+    if (myBooksData.isDeleteMode === true) {
+        return <DeleteBook />
+    }
 
     return (
         <>
