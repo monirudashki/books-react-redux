@@ -11,7 +11,6 @@ export const Login = () => {
 
     const navigateTo = useNavigate();
     const location = useLocation();
-    console.log(location?.state);
 
     const dispatch = useDispatch();
     const errorMessage = useSelector((state) => state.error.value.message);

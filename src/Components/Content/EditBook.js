@@ -55,14 +55,12 @@ export const EditBook = () => {
             const result = await editBookById(bookId, bookData);
             dispatch(editModeToggle(false));
             dispatch(editBook(result));
-            console.log(result);
         } catch (err) {
-            console.log(err); // TODO redux global state for errors
+            console.log(err);
         }
     }
 
     if (isLoading) {
-        console.log('spinner')
         return <Spinner />
     }
 

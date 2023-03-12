@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createBook } from "../../Services/data";
 
@@ -7,9 +6,6 @@ export const CreateBook = () => {
 
     const navigateTo = useNavigate();
 
-    //const dispatch = useDispatch();
-
-    //const [error, setError] = useState('');
     //const [errors, setErrors] = useState({});
 
     const [formValues, setFormValues] = useState({
@@ -37,12 +33,10 @@ export const CreateBook = () => {
         };
 
         try {
-            const result = await createBook(bookData);
-            console.log(result);
-            //dispatch(loginUser(result));
+            await createBook(bookData);
             navigateTo('/');
         } catch (err) {
-            console.log(err); // TODO redux global state for errors
+            console.log(err);
         }
     }
 

@@ -12,7 +12,6 @@ export const getMyBooksData = createAsyncThunk("myBooks/getMyBooksData", async (
         const user = getUserData();
         const userId = user._id;
         const data = await getMyBooks(userId);
-        console.log(data);
         return data;
     } catch (error) {
         rejectWithValue(error.response.data);
