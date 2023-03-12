@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { login } from "../../Services/data";
+import { Error } from '../Shared/Error'
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from '../../Features/userState/user';
 import { useNavigate } from "react-router-dom";
+import { setErrorMessage } from "../../Features/errorState/error";
 
 export const Login = () => {
 
     const navigateTo = useNavigate();
 
     const dispatch = useDispatch();
-
-    const [error, setError] = useState('');
+    const errorMessage = useSelector((state) => state.error.value.message);
 
     const [formValues, setFormValues] = useState({
         email: '',
@@ -38,36 +39,42 @@ export const Login = () => {
             dispatch(loginUser(result));
             navigateTo('/');
         } catch (err) {
-            console.log(err); // TODO redux global state for errors
+            dispatch(setErrorMessage(err.message));
         }
     }
 
     return (
-        <section id="login-page" className="login">
-            <form id="login-form" onSubmit={onSubmitHandler}>
-                <fieldset>
-                    <legend>Login Form</legend>
-                    <p className="field">
-                        <label htmlFor="email">Email</label>
-                        <span className="input">
-                            <input type="text" name="email" id="email" placeholder="Email"
-                                value={formValues.email}
-                                onChange={onChangeValueHandler}
-                            />
-                        </span>
-                    </p>
-                    <p className="field">
-                        <label htmlFor="password">Password</label>
-                        <span className="input">
-                            <input type="password" name="password" id="password" placeholder="Password"
-                                value={formValues.password}
-                                onChange={onChangeValueHandler}
-                            />
-                        </span>
-                    </p>
-                    <input className="button submit" type="submit" value="Login" />
-                </fieldset>
-            </form>
-        </section>
+        <>
+            {errorMessage !== "" &&
+                <Error />
+            }
+            <section id="login-page" className="login">
+                <form id="login-form" onSubmit={onSubmitHandler}>
+                    <fieldset>
+                        <legend>Login Form</legend>
+                        <p className="field">
+                            <label htmlFor="email">Email</label>
+                            <span className="input">
+                                <input type="text" name="email" id="email" placeholder="Email"
+                                    value={formValues.email}
+                                    onChange={onChangeValueHandler}
+                                />
+                            </span>
+                        </p>
+                        <p className="field">
+                            <label htmlFor="password">Password</label>
+                            <span className="input">
+                                <input type="password" name="password" id="password" placeholder="Password"
+                                    value={formValues.password}
+                                    onChange={onChangeValueHandler}
+                                />
+                            </span>
+                        </p>
+                        <input className="button submit" type="submit" value="Login" />
+                    </fieldset>
+                </form>
+            </section>
+        </>
+
     );
 }

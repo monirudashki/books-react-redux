@@ -11,12 +11,14 @@ import { Provider } from 'react-redux';
 import userReducer from './Features/userState/user';
 import dashboardSlice from './Features/dashboardState/dashboard';
 import { myBooksSlice } from './Features/myBooksState/myBooks';
+import errorReducer from './Features/errorState/error';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     dashboard: dashboardSlice.reducer,
-    myBooks: myBooksSlice.reducer
+    myBooks: myBooksSlice.reducer,
+    error: errorReducer
   }
 });
 

@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setErrorMessage } from "../../Features/errorState/error";
 import { loginUser } from "../../Features/userState/user";
 import { register } from "../../Services/api";
 import { passwordsMatch } from "./validators/validators";
+import { Error } from "../Shared/Error";
 
 export const Register = () => {
 
     const navigateTo = useNavigate();
 
     const dispatch = useDispatch();
+    const errorMessage = useSelector((state) => state.error.value.message);
 
-    //const [error, setError] = useState('');
     const [errors, setErrors] = useState({});
 
     const [formValues, setFormValues] = useState({
@@ -27,6 +29,8 @@ export const Register = () => {
         }));
     }
 
+    const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x)
+
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
@@ -40,43 +44,54 @@ export const Register = () => {
             dispatch(loginUser(result));
             navigateTo('/');
         } catch (err) {
-            console.log(err); // TODO redux global state for errors
+            dispatch(setErrorMessage(err.message));
         }
     }
 
     return (
-        <section id="register-page" className="register">
-            <form id="register-form" onSubmit={onSubmitHandler}>
-                <fieldset>
-                    <legend>Register Form</legend>
-                    <p className="field">
-                        <label htmlFor="email">Email</label>
-                        <span className="input">
-                            <input type="text" name="email" id="email" placeholder="Email"
-                                value={formValues.email}
-                                onChange={onChangeValueHandler}
-                            />
-                        </span>
-                    </p>
-                    <p className="field">
-                        <label htmlFor="password">Password</label>
-                        <span className="input">
-                            <input type="password" name="password" id="password" placeholder="Password"
-                                value={formValues.password}
-                                onChange={onChangeValueHandler}
-                            />
-                        </span>
-                    </p>
-                    <p className="field">
-                        <label htmlFor="rePass">Repeat Password</label>
-                        <span className="input">
-                            <input type="password" name="rePass" id="rePass" placeholder="Repeat Password"
-                                value={formValues.rePass} onChange={onChangeValueHandler} onBlur={(e) => passwordsMatch(e, setErrors, formValues)} />
-                        </span>
-                    </p>
-                    <input className="button submit" type="submit" value="Register" />
-                </fieldset>
-            </form>
-        </section>
+        <>
+
+            {errorMessage !== "" &&
+                <Error />
+            }
+
+            <section id="register-page" className="register">
+                <form id="register-form" onSubmit={onSubmitHandler}>
+                    <fieldset>
+                        <legend>Register Form</legend>
+                        <p className="field">
+                            <label htmlFor="email">Email</label>
+                            <span className="input">
+                                <input type="text" name="email" id="email" placeholder="Email"
+                                    value={formValues.email}
+                                    onChange={onChangeValueHandler}
+                                />
+                            </span>
+                        </p>
+                        <p className="field">
+                            <label htmlFor="password">Password</label>
+                            <span className="input">
+                                <input type="password" name="password" id="password" placeholder="Password"
+                                    value={formValues.password}
+                                    onChange={onChangeValueHandler}
+                                />
+                            </span>
+                        </p>
+                        <p className="field">
+                            <label htmlFor="rePass">Repeat Password</label>
+                            <span className="input">
+                                <input type="password" name="rePass" id="rePass" placeholder="Repeat Password"
+                                    value={formValues.rePass} onChange={onChangeValueHandler} onBlur={(e) => passwordsMatch(e, setErrors, formValues)} />
+                            </span>
+                        </p>
+                        {errors.rePass &&
+                            <p style={{ color: 'red', textAlign: 'center' }}>Passwords don't match!</p>
+                        }
+                        <input disabled={invalidForm} className="button submit" type="submit" value="Register" />
+                    </fieldset>
+                </form>
+            </section>
+
+        </>
     );
 }
