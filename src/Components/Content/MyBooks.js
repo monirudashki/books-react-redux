@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { getMyBooksData } from "../../Features/myBooksState/myBooksThunk";
 import { Spinner } from "../Shared/Spinner";
 import { DashboardItem } from "./DashboardItem";
@@ -9,11 +10,21 @@ import { EditBook } from './EditBook';
 export const MyBooks = () => {
 
     const dispatch = useDispatch();
+    const navigateTo = useNavigate();
+
     const myBooksData = useSelector((state) => state.myBooks);
+    const currentUser = useSelector((state) => state.user.value);
+    const { id } = useParams();
 
     useEffect(() => {
         dispatch(getMyBooksData());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (id !== currentUser._id) {
+            navigateTo('/');
+        }
+    }, [id, currentUser._id, navigateTo]);
 
     if (myBooksData.isEditMode === true) {
         return <EditBook />

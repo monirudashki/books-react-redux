@@ -11,7 +11,6 @@ import { Dashboard } from './Components/Content/Dashboard';
 import { CreateBook } from './Components/Content/CreateBook';
 import { MyBooks } from './Components/Content/MyBooks';
 import { UsersOnlyGuard } from './Guards/UserOnlyGuard';
-import { GuestGuardOnly } from './Guards/GuestOnlyGuard';
 
 function App() {
   return (
@@ -23,17 +22,14 @@ function App() {
 
           <Route path='/' element={<Dashboard />} />
 
-          <Route element={<GuestGuardOnly />}>
-            <Route path='/auth/login' element={<Login />} />
-            <Route path='/auth/register' element={<Register />} />
-          </Route>
+          <Route path='/auth/login' element={<Login />} />
+          <Route path='/auth/register' element={<Register />} />
 
           <Route element={<UsersOnlyGuard />}>
             <Route path='/auth/logout' element={<Logout />} />
             <Route path='/createBook' element={<CreateBook />} />
-            <Route path='/myBooks' element={<MyBooks />} />
+            <Route path='/myBooks/:id' element={<MyBooks />} />
           </Route>
-
 
         </Routes>
       </div>

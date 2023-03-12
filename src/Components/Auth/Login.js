@@ -4,12 +4,14 @@ import { Error } from '../Shared/Error'
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from '../../Features/userState/user';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setErrorMessage } from "../../Features/errorState/error";
 
 export const Login = () => {
 
     const navigateTo = useNavigate();
+    const location = useLocation();
+    console.log(location?.state);
 
     const dispatch = useDispatch();
     const errorMessage = useSelector((state) => state.error.value.message);
@@ -37,7 +39,11 @@ export const Login = () => {
         try {
             const result = await login(userData.email, userData.password);
             dispatch(loginUser(result));
-            navigateTo('/');
+            if (location.state && !location.state.previousPath.includes('logout')) {
+                navigateTo(location.state.previousPath);
+            } else {
+                navigateTo('/');
+            }
         } catch (err) {
             dispatch(setErrorMessage(err.message));
         }
